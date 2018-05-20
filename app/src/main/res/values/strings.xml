@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">BookStoreApp</string>
+    <string name="insert">insert</string>
+    <string name="insertDummyData">Insert Dummy Data</string>
+    <string name="del">Delete All</string>
+    <string name="query_supp">Query Supplier</string>
+    <string name="query_prod">Query Product</string>
+    <string name="category_overview">Overview</string>
+    <string name="hint_book_name">Book Name</string>
+    <string name="hint_book_price">£0.0</string>
+    <string name="quantity">Quantity</string>
+    <string name="supplier_name">Supplier Name</string>
+    <string name="hint_supp_name">name</string>
+    <string name="supplier_phone">Supplier Phone:</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="price">Price:</string>
+    <string name="namebooklabel">Name:</string>
+    <string name="editor_insert_book_failed">Error inserting book</string>
+    <string name="editor_insert_book_successful">Book successfully stored</string>
+    <string name="edit_activity_title_new_book">Add a Book</string>
+    <string name="phone_number_hint">phone number</string>
+    <string name="empty_view_title_text">No Books OMG!</string>
+    <string name="empty_view_subtitle_text">Get Started by Adding a Book</string>
+    <string name="edit_activity_title_existing_book">Edit Pet</string>
+</resources>

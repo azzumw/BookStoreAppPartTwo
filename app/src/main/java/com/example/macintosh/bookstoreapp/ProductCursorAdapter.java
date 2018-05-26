@@ -33,10 +33,12 @@ public class ProductCursorAdapter extends CursorAdapter {
         int indexBookNameCol = cursor.getColumnIndex(ProductEntry.NAME);
         int indexPriceCol = cursor.getColumnIndex(ProductEntry.PRICE);
         int indexQtyCol = cursor.getColumnIndex(ProductEntry.QUANTITY);
+//        int indexSuppName = cursor.getColumnIndex(ProductEntry.SUPPLIER_NAME);
         int indexStockStatCol = cursor.getColumnIndex(ProductEntry.STOCK_STATUS);
 
         String name_book = cursor.getString(indexBookNameCol);
         int qty = cursor.getInt(indexQtyCol);
+//        String suppName = context.getString(indexSuppName);
         double price_book = cursor.getDouble(indexPriceCol);
         int stock_status = cursor.getInt(indexStockStatCol);
 

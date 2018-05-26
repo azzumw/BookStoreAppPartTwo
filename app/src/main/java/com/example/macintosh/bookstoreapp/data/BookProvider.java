@@ -126,7 +126,7 @@ public class BookProvider extends ContentProvider {
             case PRODUCTS:
                 return updateProduct(uri, contentValues, selection, selectionArgs);
             case PRODUCT_ID:
-                // For the PET_ID code, extract out the ID from the URI,
+                // For the PRODUCT_ID code, extract out the ID from the URI,
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = ProductEntry._ID + "=?";
@@ -152,7 +152,7 @@ public class BookProvider extends ContentProvider {
             }
         }
 
-        // TODO: Update the selected pets in the pets database table with the given ContentValues
+        // TODO: Update the selected products in the products database table with the given ContentValues
         SQLiteDatabase database = productDbHelper.getWritableDatabase();
         int rowsUpdated = database.update(TABLE_NAME,contentValues,selection,selectionArgs);
 
@@ -185,7 +185,7 @@ public class BookProvider extends ContentProvider {
             throw new IllegalArgumentException("Supplier name required");
         }
 
-        // TODO: Insert a new pet into the pets database table with the given ContentValues
+        // TODO: Insert a new product into the products database table with the given ContentValues
         SQLiteDatabase database = productDbHelper.getWritableDatabase();
 
         long id = database.insert(TABLE_NAME,null,values);

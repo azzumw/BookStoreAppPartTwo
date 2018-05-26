@@ -23,4 +23,15 @@
     <string name="empty_view_title_text">No Books OMG!</string>
     <string name="empty_view_subtitle_text">Get Started by Adding a Book</string>
     <string name="edit_activity_title_existing_book">Edit Pet</string>
+    <string name="editor_update_pet_failed">Failed to Update the current product</string>
+    <string name="editor_update_pet_successful">Product successfully updated!</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
 </resources>

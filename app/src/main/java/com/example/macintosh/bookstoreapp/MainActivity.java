@@ -5,12 +5,14 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.macintosh.bookstoreapp.data.ProductContract.ProductEntry;
 
@@ -92,9 +95,45 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
         switch (item.getItemId()){
             case R.id.action_insert_dummy_data: insertProductData();return true;
-            case R.id.action_delete_all: return true;
+            case R.id.action_delete_all: showDeleteConfirmationDialog();return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showDeleteConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the postivie and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.catalog_delete_all_prod_confirmation);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the product.
+                deleteAllProducts();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the product.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void deleteAllProducts(){
+        int rows = getContentResolver().delete(ProductEntry.CONTENT_URI,null,null);
+        if(rows != 0){
+            Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /** inserts data in to the products table by fetching supplier Id from the supplier Table*/
@@ -111,25 +150,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
         Uri uri = getContentResolver().insert(ProductEntry.CONTENT_URI,values);
     }
-
-
-    /**Query the products table. */
-    /*private void queryProductData(){
-        String [] projection = {ProductEntry.PRODUCT_ID,ProductEntry.NAME,ProductEntry.PRICE,ProductEntry.SUPPLIER_NAME,ProductEntry.STOCK_STATUS};
-
-        Cursor cursor = getContentResolver().query(ProductEntry.CONTENT_URI,projection,null,null,null);
-
-        ListView listView = findViewById(R.id.listviewMain);
-
-        View emptyView = findViewById(R.id.empty_view);
-        listView.setEmptyView(emptyView);
-
-        ProductCursorAdapter cursorAdapter = new ProductCursorAdapter(this,cursor);
-
-        listView.setAdapter(cursorAdapter);
-
-        cursorAdapter.changeCursor(cursor);
-    }*/
 
     @Override
     public Loader onCreateLoader(int i, Bundle bundle) {

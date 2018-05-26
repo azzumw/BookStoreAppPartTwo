@@ -3,8 +3,10 @@ package com.example.macintosh.bookstoreapp;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
@@ -56,15 +58,31 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         currentProductUri = getIntent().getData();
 
+        // Setup FAB to open EditorActivity
+        FloatingActionButton fab = findViewById(R.id.call_fab);
 
         if (currentProductUri == null) {
             this.setTitle(R.string.edit_activity_title_new_book);
             invalidateOptionsMenu();
+            fab.hide();
         }
 // get data via the key
         else {
             setTitle(R.string.edit_activity_title_existing_book);
             getSupportLoaderManager().initLoader(0,null,this);
+
+
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    long supplierPhone = Long.parseLong(editTextSupplierPhone.getText().toString().trim());
+                    intent.setData(Uri.parse("tel:"+String.valueOf(supplierPhone)));
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+                }
+            });
         }
 
         editTextBookname = findViewById(R.id.edit_book_name);
@@ -80,6 +98,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         qtySpinner = findViewById(R.id.spinner_quantity);
 
         setupSpinner();
+
+
 
     }
 

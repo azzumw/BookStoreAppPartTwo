@@ -129,10 +129,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
     private void deleteAllProducts(){
         int rows = getContentResolver().delete(ProductEntry.CONTENT_URI,null,null);
         if(rows != 0){
-            Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.catalog_delete_successful, Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.catalog_error_deleting, Toast.LENGTH_SHORT).show();
         }
     }
 

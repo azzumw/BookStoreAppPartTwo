@@ -25,9 +25,9 @@ public class ProductCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView bookNameTxtView = view.findViewById(R.id.nameTextView);
+        TextView bookNameTxtView = view.findViewById(R.id.productnameTextView);
         TextView qtyTxtView = view.findViewById(R.id.quantityTextView);
-        TextView priceTxtView = view.findViewById(R.id.pricetextview);
+        TextView priceTxtView = view.findViewById(R.id.priceBtn);
         TextView stockTxtView = view.findViewById(R.id.stock_statustextview);
 
         int indexBookNameCol = cursor.getColumnIndex(ProductEntry.NAME);

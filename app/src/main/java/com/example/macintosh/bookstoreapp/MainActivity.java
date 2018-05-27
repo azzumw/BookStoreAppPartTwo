@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import com.example.macintosh.bookstoreapp.data.ProductContract.ProductEntry;
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-    ProductCursorAdapter mAdapter;
+    private ProductCursorAdapter mAdapter;
 
 
     public static final String [] PROJECTION = {ProductEntry.PRODUCT_ID,
@@ -40,10 +41,14 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
                                                 };
 
 
+    private Button buy_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        buy_button = findViewById(R.id.priceBtn);
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.fab);

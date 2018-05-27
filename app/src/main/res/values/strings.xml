@@ -23,8 +23,8 @@
     <string name="empty_view_title_text">No Books OMG!</string>
     <string name="empty_view_subtitle_text">Get Started by Adding a Book</string>
     <string name="edit_activity_title_existing_book">Edit Pet</string>
-    <string name="editor_update_pet_failed">Failed to Update the current product</string>
-    <string name="editor_update_pet_successful">Product successfully updated!</string>
+    <string name="editor_update_prod_failed">Failed to Update the current product</string>
+    <string name="editor_update_prod_successful">Product successfully updated!</string>
 
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
@@ -53,4 +53,7 @@
     <string name="cancel">Cancel</string>
     <string name="catalog_error_deleting">Error Deleting</string>
     <string name="catalog_delete_successful">Deleted</string>
+    <string name="editor_info_miss_msg">Some information is missing</string>
+    <string name="stock_hint">in stock</string>
+    <string name="price_buy_hint">BUY £0.0</string>
 </resources>

@@ -1,49 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/activity_margin">
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp"
+    android:id="@+id/list_item_linear">
 
     <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
         android:fontFamily="sans-serif-medium"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="#2B3D4D"
-        android:textAllCaps="true"
-        tools:text="@string/hint_book_name"/>
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:background="@drawable/baseline_book_black_24"
+        android:id="@+id/book_icon_textview"/>
 
-    <TextView
-        android:id="@+id/quantityTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:id="@+id/innerLinearLayout"
+        android:layout_marginLeft="16dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nameTextView"
-        android:layout_marginTop="5dp"
-        android:fontFamily="sans-serif"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="#AEB6BD"
-        tools:text="@string/quantity" />
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:hint="@string/hint_book_name"
+            android:id="@+id/productnameTextView"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:id="@+id/quantityTextView"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/pricetextview"
-        android:hint="£0.0"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/stock_statustextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/pricetextview"
-        android:layout_alignRight="@+id/pricetextview"
-        android:layout_below="@+id/pricetextview"
-        android:layout_marginTop="5dp"
-        tools:text="in stock" />
+        <TextView
+            android:id="@+id/priceBtn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:padding="8dp"
+            android:gravity="bottom"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/rectangle_background"
+            android:hint="@string/price_buy_hint"
+            android:layout_marginBottom="2dp"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/stock_statustextview"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:gravity="top"
+            android:padding="8dp"
+            android:hint="@string/stock_hint"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,12 +1,12 @@
 package com.example.macintosh.bookstoreapp;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
@@ -25,8 +25,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.macintosh.bookstoreapp.data.ProductContract.ProductEntry;
-
-import java.net.URI;
 
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -184,10 +182,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     // If the new content URI is null, then there was an error with insertion.
                     Toast.makeText(this, getString(R.string.editor_insert_book_failed),
                             Toast.LENGTH_SHORT).show();
+//                    Snackbar.make(, R.string.editor_insert_book_failed,Snackbar.LENGTH_SHORT).show();
+
+
                 } else {
                     // Otherwise, the insertion was successful and we can display a toast.
                     Toast.makeText(this, getString(R.string.editor_insert_book_successful),
                             Toast.LENGTH_SHORT).show();
+//                    Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_insert_book_successful,Snackbar.LENGTH_SHORT).show();
+
                 }
             }else{
 //            String selection = ProductEntry._ID + "=?";
@@ -198,12 +201,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // Show a toast message depending on whether or not the update was successful.
                 if (rowsAffected == 0) {
                     // If no rows were affected, then there was an error with the update.
-                    Toast.makeText(this, getString(R.string.editor_update_pet_failed),
+                    Toast.makeText(this, getString(R.string.editor_update_prod_failed),
                             Toast.LENGTH_SHORT).show();
+//                    Snackbar.make(, R.string.editor_update_prod_failed,Snackbar.LENGTH_SHORT).show();
+
                 } else {
                     // Otherwise, the update was successful and we can display a toast.
-                    Toast.makeText(this, getString(R.string.editor_update_pet_successful),
+                    Toast.makeText(this, getString(R.string.editor_update_prod_successful),
                             Toast.LENGTH_SHORT).show();
+//                    Snackbar.make(findViewById(R.id.relative_layout), R.string.editor_update_prod_successful,Snackbar.LENGTH_SHORT).show();
+
                 }
             }
         }
@@ -274,7 +281,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         savePet(false);finish();return true;
                     }
                     else{
-                        Toast.makeText(this, "Missing Fields", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, "Missing Fields", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_info_miss_msg,Snackbar.LENGTH_SHORT).show();
                     }
                 }
 //                 savePet(anyFieldMissing);
@@ -339,16 +347,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * Perform the deletion of the pet in the database.
      */
     private void deleteProduct() {
-        // TODO: Implement this method
+
         int rowsDeleted;
         if(currentProductUri!=null){
 
             rowsDeleted = getContentResolver().delete(currentProductUri,null,null);
             if(rowsDeleted!=0){
-                Toast.makeText(this, getString(R.string.editor_delete_product_successful), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, getString(R.string.editor_delete_product_successful), Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_delete_product_successful,Snackbar.LENGTH_SHORT).show();
+
             }
             else{
-                Toast.makeText(this, getString(R.string.editor_delete_product_failed), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, getString(R.string.editor_delete_product_failed), Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_delete_product_failed,Snackbar.LENGTH_SHORT).show();
+
             }
             finish();
         }

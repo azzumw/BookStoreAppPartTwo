@@ -58,38 +58,4 @@ public class ProductDbHelper extends SQLiteOpenHelper {
         return getReadableDatabase().rawQuery("SELECT * FROM " +ProductEntry.TABLE_NAME, null);
     }
 
-//    public Cursor getAllSuppliers() {
-//        return getReadableDatabase().rawQuery("SELECT * FROM " +SupplierEntry.TABLE_NAME, null);
-//    }
-
-    /*public long insertProduct() {
-        ContentValues values = new ContentValues();
-
-        values.put(ProductEntry.NAME,"Quiet - The Power of Introverts");
-        values.put(ProductEntry.PRICE,6);
-        values.put(ProductEntry.QUANTITY,5);
-        values.put(ProductEntry.STOCK_STATUS,ProductEntry.IN_STOCK);
-        values.put(ProductEntry.SUPPLIER_NAME,"Amazon");
-        values.put(ProductEntry.SUPPLIER_PHONE_NUMBER,"08004657935");
-//        values.put(ProductEntry.SUPPLIER_ID,supplierId);
-
-        // Insert the new row, returning the primary key value of the new row,e lse -1
-        //null here means it does not create any row if you didnt provide values otherwise
-        //it will insert row with null values.
-        return getWritableDatabase().insert(ProductEntry.TABLE_NAME, null, values);
-    }*/
-
-//    public long insertSupplier() {
-//        ContentValues values = new ContentValues();
-//
-//        values.put(SupplierEntry.NAME,"Amazon");
-//        values.put(SupplierEntry.PHONE,"02056897464");
-//
-//        return getWritableDatabase().insert(SupplierEntry.TABLE_NAME,null,values);
-//    }
-
-
-//    public int deleteAllSuppliers() {
-//        return getWritableDatabase().delete(SupplierEntry.TABLE_NAME, null, null);
-//    }
 }

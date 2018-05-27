@@ -56,4 +56,5 @@
     <string name="editor_info_miss_msg">Some information is missing</string>
     <string name="stock_hint">in stock</string>
     <string name="price_buy_hint">BUY £0.0</string>
+    <string name="buy_pound">BUY £</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.macintosh.bookstoreapp;
 
-import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -19,8 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.macintosh.bookstoreapp.data.ProductContract.ProductEntry;
@@ -41,14 +40,14 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
                                                 };
 
 
-    private Button buy_button;
+    private TextView buy_textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buy_button = findViewById(R.id.priceBtn);
+        buy_textview = findViewById(R.id.priceBtn);
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 //        Cursor cursor = getContentResolver().query(ProductEntry.CONTENT_URI,PROJECTION,null,null,null);
 
         mAdapter = new ProductCursorAdapter(this,null);
-        ListView listView =  findViewById(R.id.listviewMain);
+        final ListView listView =  findViewById(R.id.listviewMain);
 
         View emptyView = findViewById(R.id.empty_view);
         listView.setEmptyView(emptyView);

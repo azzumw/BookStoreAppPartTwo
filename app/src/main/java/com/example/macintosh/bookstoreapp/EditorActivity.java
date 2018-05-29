@@ -21,10 +21,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.macintosh.bookstoreapp.data.ProductContract.ProductEntry;
+
+import java.util.Properties;
 
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -33,7 +37,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText editTextBookPrice;
     private EditText editTextSupplierName;
     private EditText editTextSupplierPhone;
-    private int quantity = ProductEntry.DEFAULT_QUANTITY; //1
+    private TextView qtyNumberTxtView;
+    private ImageButton incrementQty;
+    private ImageButton decrementQty;
+
+    private int quantity; //0
 
     private Spinner qtySpinner;
 
@@ -56,6 +64,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         currentProductUri = getIntent().getData();
 
+        editTextBookname = findViewById(R.id.edit_book_name);
+        editTextBookPrice = findViewById(R.id.edit_price);
+        editTextSupplierName = findViewById(R.id.edit_supp_name);
+        editTextSupplierPhone = findViewById(R.id.edit_supp_phone);
+        incrementQty = findViewById(R.id.plus);
+        decrementQty = findViewById(R.id.minus);
+        qtyNumberTxtView = findViewById(R.id.number);
+
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.call_fab);
 
@@ -63,6 +79,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             this.setTitle(R.string.edit_activity_title_new_book);
             invalidateOptionsMenu();
             fab.hide();
+            quantity = ProductEntry.DEFAULT_QUANTITY;
+            qtyNumberTxtView.setText(String.valueOf(quantity));
         }
 // get data via the key
         else {
@@ -83,20 +101,39 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             });
         }
 
-        editTextBookname = findViewById(R.id.edit_book_name);
-        editTextBookPrice = findViewById(R.id.edit_price);
-        editTextSupplierName = findViewById(R.id.edit_supp_name);
-        editTextSupplierPhone = findViewById(R.id.edit_supp_phone);
+
 
         editTextBookname.setOnTouchListener(mTouchListener);
         editTextBookPrice.setOnTouchListener(mTouchListener);
         editTextSupplierPhone.setOnTouchListener(mTouchListener);
         editTextSupplierName.setOnTouchListener(mTouchListener);
+        incrementQty.setOnTouchListener(mTouchListener);
+        decrementQty.setOnTouchListener(mTouchListener);
 
-        qtySpinner = findViewById(R.id.spinner_quantity);
+//        qtySpinner = findViewById(R.id.spinner_quantity);
 
-        setupSpinner();
+//        setupSpinner();
 
+
+        //qtyNumberTxtView.setText(String.valueOf(quantity));
+
+        incrementQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                quantity = quantity+1;
+                qtyNumberTxtView.setText(String.valueOf(quantity));
+            }
+        });
+
+        decrementQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quantity>0){
+                    quantity--;
+                    qtyNumberTxtView.setText(String.valueOf(quantity));
+                }
+            }
+        });
 
 
     }
@@ -153,6 +190,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             String bookName = editTextBookname.getText().toString().trim();
             double price = Double.parseDouble(editTextBookPrice.getText().toString().trim());
+            quantity = Integer.parseInt(qtyNumberTxtView.getText().toString());
             String supplierName = editTextSupplierName.getText().toString().trim();
             long supplierPhone = Long.parseLong(editTextSupplierPhone.getText().toString().trim());
 
@@ -216,7 +254,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
     }
 
-    private void setupSpinner() {
+    /*private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
         // the spinner will use the default layout
         ArrayAdapter quantitySpinnerAdapter = ArrayAdapter.createFromResource(this,
@@ -238,7 +276,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 quantity = ProductEntry.DEFAULT_QUANTITY; //0
             }
         });
-    }
+    }*/
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -394,13 +434,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             String name = cursor.getString(namecolindex);
             double price = cursor.getDouble(pricecolindex);
-            int qty = cursor.getInt(qtycolindex);
+            quantity = cursor.getInt(qtycolindex);
             String suppName = cursor.getString(suppnamecolindex);
             int suppPhone = cursor.getInt(suppPhonecolindex);
 
             editTextBookname.setText(name);
             editTextBookPrice.setText(String.valueOf(price));
-            qtySpinner.setSelection(qty);
+            qtyNumberTxtView.setText(String.valueOf(quantity));
+            //qtySpinner.setSelection(qty);
             editTextSupplierName.setText(suppName);
             editTextSupplierPhone.setText(String.valueOf(suppPhone));
 
@@ -413,6 +454,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         editTextBookPrice.setText("");
         editTextSupplierName.setText("");
         editTextSupplierPhone.setText("");
-        qtySpinner.setSelection(0);
+        qtyNumberTxtView.setText(String.valueOf(0));
+        //qtySpinner.setSelection(0);
     }
 }

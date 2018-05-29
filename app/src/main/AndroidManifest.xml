@@ -21,7 +21,7 @@
         </activity>
         <provider
             android:authorities="com.example.macintosh.bookstoreapp"
-            android:name=".data.BookProvider"
+            android:name=".data.ProductProvider"
             android:exported="false"
             />
     </application>

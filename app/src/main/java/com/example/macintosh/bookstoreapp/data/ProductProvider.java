@@ -18,7 +18,7 @@ import static com.example.macintosh.bookstoreapp.data.ProductContract.ProductEnt
  * Created by macintosh on 14/05/2018.
  */
 
-public class BookProvider extends ContentProvider {
+public class ProductProvider extends ContentProvider {
 
     private static final int PRODUCTS = 100;
     private static final int PRODUCT_ID = 101;

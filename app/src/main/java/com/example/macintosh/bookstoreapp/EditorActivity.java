@@ -190,7 +190,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             String bookName = editTextBookname.getText().toString().trim();
             double price = Double.parseDouble(editTextBookPrice.getText().toString().trim());
-            quantity = Integer.parseInt(qtyNumberTxtView.getText().toString());
+            int quant = Integer.parseInt(qtyNumberTxtView.getText().toString());
             String supplierName = editTextSupplierName.getText().toString().trim();
             long supplierPhone = Long.parseLong(editTextSupplierPhone.getText().toString().trim());
 
@@ -198,11 +198,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             ContentValues  values = new ContentValues();
             values.put(ProductEntry.NAME,bookName);
             values.put(ProductEntry.PRICE,price);
-            values.put(ProductEntry.QUANTITY,quantity);
+            values.put(ProductEntry.QUANTITY,quant);
             values.put(ProductEntry.SUPPLIER_NAME,supplierName);
             values.put(ProductEntry.SUPPLIER_PHONE_NUMBER,supplierPhone);
 
-            if(quantity==ProductEntry.DEFAULT_QUANTITY) {
+            if(quant==ProductEntry.DEFAULT_QUANTITY) {
                 values.put(ProductEntry.STOCK_STATUS,ProductEntry.OUT_OF_STOCK);
             }
 

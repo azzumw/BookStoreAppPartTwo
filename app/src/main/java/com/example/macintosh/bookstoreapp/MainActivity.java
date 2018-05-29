@@ -11,6 +11,7 @@ import android.database.Cursor;
 
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
     private ProductCursorAdapter mAdapter;
 
+    ListView listView;
+
 
     public static final String [] PROJECTION = {ProductEntry.PRODUCT_ID,
                                                 ProductEntry.NAME,
@@ -40,14 +43,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
                                                 };
 
 
-    private TextView buy_textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        buy_textview = findViewById(R.id.priceBtn);
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -60,11 +60,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
         });
 
 
-
-//        Cursor cursor = getContentResolver().query(ProductEntry.CONTENT_URI,PROJECTION,null,null,null);
-
         mAdapter = new ProductCursorAdapter(this,null);
-        final ListView listView =  findViewById(R.id.listviewMain);
+        listView =  findViewById(R.id.listviewMain);
 
         View emptyView = findViewById(R.id.empty_view);
         listView.setEmptyView(emptyView);
@@ -99,7 +96,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
         switch (item.getItemId()){
             case R.id.action_insert_dummy_data: insertProductData();return true;
-            case R.id.action_delete_all: showDeleteConfirmationDialog();return true;
+            case R.id.action_delete_all:
+                if(listView.getCount()>0)showDeleteConfirmationDialog();
+                else Snackbar.make(findViewById(R.id.relative_layout), R.string.no_books_snackbar_del_msg,Snackbar.LENGTH_SHORT).show();return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -133,10 +132,12 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
     private void deleteAllProducts(){
         int rows = getContentResolver().delete(ProductEntry.CONTENT_URI,null,null);
         if(rows != 0){
-            Toast.makeText(this, R.string.catalog_delete_successful, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.catalog_delete_successful, Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.relative_layout),R.string.catalog_delete_successful,Snackbar.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, R.string.catalog_error_deleting, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.catalog_error_deleting, Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.relative_layout),R.string.catalog_error_deleting,Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -145,11 +146,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
         ContentValues values = new ContentValues();
 
-        values.put(ProductEntry.NAME,"Quiet - The Power of Introverts");
+        values.put(ProductEntry.NAME,getString(R.string.dummyData_bookname));
         values.put(ProductEntry.PRICE,6.99);
         values.put(ProductEntry.QUANTITY,1);
         values.put(ProductEntry.STOCK_STATUS,ProductEntry.IN_STOCK);
-        values.put(ProductEntry.SUPPLIER_NAME,"Amazon");
+        values.put(ProductEntry.SUPPLIER_NAME,getString(R.string.dummyData_suppName));
         values.put(ProductEntry.SUPPLIER_PHONE_NUMBER,567);
 
         Uri uri = getContentResolver().insert(ProductEntry.CONTENT_URI,values);

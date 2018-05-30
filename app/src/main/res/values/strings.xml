@@ -60,4 +60,6 @@
     <string name="no_books_snackbar_del_msg">There are no books to delete</string>
     <string name="dummyData_bookname">Quiet - The Power of Introverts</string>
     <string name="dummyData_suppName">Amazon</string>
+    <string name="in_stock_status">IN  STOCK</string>
+    <string name="out_of_stock_status">OUT OF STOCK</string>
 </resources>

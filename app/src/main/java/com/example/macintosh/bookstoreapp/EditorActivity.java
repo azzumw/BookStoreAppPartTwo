@@ -18,17 +18,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.macintosh.bookstoreapp.data.ProductContract.ProductEntry;
 
-import java.util.Properties;
 
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -41,9 +37,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private ImageButton incrementQty;
     private ImageButton decrementQty;
 
-    private int quantity; //0
-
-    private Spinner qtySpinner;
+    private int quantity;
 
     private Uri currentProductUri;
 
@@ -82,7 +76,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             quantity = ProductEntry.DEFAULT_QUANTITY;
             qtyNumberTxtView.setText(String.valueOf(quantity));
         }
-// get data via the key
+        // get data via the key
         else {
             setTitle(R.string.edit_activity_title_existing_book);
             getSupportLoaderManager().initLoader(0,null,this);
@@ -101,21 +95,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             });
         }
 
-
-
         editTextBookname.setOnTouchListener(mTouchListener);
         editTextBookPrice.setOnTouchListener(mTouchListener);
         editTextSupplierPhone.setOnTouchListener(mTouchListener);
         editTextSupplierName.setOnTouchListener(mTouchListener);
         incrementQty.setOnTouchListener(mTouchListener);
         decrementQty.setOnTouchListener(mTouchListener);
-
-//        qtySpinner = findViewById(R.id.spinner_quantity);
-
-//        setupSpinner();
-
-
-        //qtyNumberTxtView.setText(String.valueOf(quantity));
 
         incrementQty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,8 +119,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 }
             }
         });
-
-
     }
 
     private void savePet(boolean areAllTextAvailable){
@@ -148,7 +131,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int quant = Integer.parseInt(qtyNumberTxtView.getText().toString());
             String supplierName = editTextSupplierName.getText().toString().trim();
             long supplierPhone = Long.parseLong(editTextSupplierPhone.getText().toString().trim());
-
 
             ContentValues  values = new ContentValues();
             values.put(ProductEntry.NAME,bookName);
@@ -175,19 +157,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     // If the new content URI is null, then there was an error with insertion.
                     Toast.makeText(this, getString(R.string.editor_insert_book_failed),
                             Toast.LENGTH_SHORT).show();
-//                    Snackbar.make(, R.string.editor_insert_book_failed,Snackbar.LENGTH_SHORT).show();
-
-
                 } else {
                     // Otherwise, the insertion was successful and we can display a toast.
                     Toast.makeText(this, getString(R.string.editor_insert_book_successful),
                             Toast.LENGTH_SHORT).show();
-//                    Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_insert_book_successful,Snackbar.LENGTH_SHORT).show();
-
                 }
             }else{
-//            String selection = ProductEntry._ID + "=?";
-//            String [] selectionArgs = new String[] { String.valueOf(ContentUris.parseId(currentProductUri)) };
 
                 int rowsAffected = getContentResolver().update(currentProductUri,values,null,null);
 
@@ -196,14 +171,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     // If no rows were affected, then there was an error with the update.
                     Toast.makeText(this, getString(R.string.editor_update_prod_failed),
                             Toast.LENGTH_SHORT).show();
-//                    Snackbar.make(, R.string.editor_update_prod_failed,Snackbar.LENGTH_SHORT).show();
-
                 } else {
                     // Otherwise, the update was successful and we can display a toast.
                     Toast.makeText(this, getString(R.string.editor_update_prod_successful),
                             Toast.LENGTH_SHORT).show();
-//                    Snackbar.make(findViewById(R.id.relative_layout), R.string.editor_update_prod_successful,Snackbar.LENGTH_SHORT).show();
-
                 }
             }
         }
@@ -257,12 +228,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_info_miss_msg,Snackbar.LENGTH_SHORT).show();
                     }
                 }
-//                 savePet(anyFieldMissing);
-                // Exit activity
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
-                // Do nothing for now
                 showDeleteConfirmationDialog();
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
@@ -325,7 +293,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             editTextBookname.setText(name);
             editTextBookPrice.setText(String.valueOf(price));
             qtyNumberTxtView.setText(String.valueOf(quantity));
-            //qtySpinner.setSelection(qty);
             editTextSupplierName.setText(suppName);
             editTextSupplierPhone.setText(String.valueOf(suppPhone));
 
@@ -339,7 +306,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         editTextSupplierName.setText("");
         editTextSupplierPhone.setText("");
         qtyNumberTxtView.setText(String.valueOf(0));
-        //qtySpinner.setSelection(0);
     }
 
     private void showDeleteConfirmationDialog() {
@@ -435,29 +401,5 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Show dialog that there are unsaved changes
         showUnsavedChangesDialog(discardButtonClickListener);
     }
-
-    /*private void setupSpinner() {
-        // Create adapter for spinner. The list options are from the String array it will use
-        // the spinner will use the default layout
-        ArrayAdapter quantitySpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.quantity_array, android.R.layout.simple_spinner_item);
-
-        // Specify dropdown layout style - simple list view with 1 item per line
-        quantitySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-        qtySpinner.setAdapter(quantitySpinnerAdapter);
-
-        qtySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                quantity = Integer.parseInt(adapterView.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                quantity = ProductEntry.DEFAULT_QUANTITY; //0
-            }
-        });
-    }*/
 
 }

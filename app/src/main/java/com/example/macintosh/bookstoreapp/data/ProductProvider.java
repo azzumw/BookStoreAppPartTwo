@@ -152,7 +152,6 @@ public class ProductProvider extends ContentProvider {
             }
         }
 
-        // TODO: Update the selected products in the products database table with the given ContentValues
         SQLiteDatabase database = productDbHelper.getWritableDatabase();
         int rowsUpdated = database.update(TABLE_NAME,contentValues,selection,selectionArgs);
 
@@ -161,7 +160,6 @@ public class ProductProvider extends ContentProvider {
         if (rowsUpdated != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-        // TODO: Return the number of rows that were affected
         return rowsUpdated;
     }
 
@@ -177,15 +175,10 @@ public class ProductProvider extends ContentProvider {
             throw new IllegalArgumentException("Cannot be empty. Text only");
         }
 
-//        if (productPrice<0){
-//            throw new IllegalArgumentException("Negative numbers not allowed");
-//        }
-
         if(supplierName==null){
             throw new IllegalArgumentException("Supplier name required");
         }
 
-        // TODO: Insert a new product into the products database table with the given ContentValues
         SQLiteDatabase database = productDbHelper.getWritableDatabase();
 
         long id = database.insert(TABLE_NAME,null,values);

@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
                                                 ProductEntry.SUPPLIER_PHONE_NUMBER
                                                 };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,11 +132,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
     private void deleteAllProducts(){
         int rows = getContentResolver().delete(ProductEntry.CONTENT_URI,null,null);
         if(rows != 0){
-//            Toast.makeText(this, R.string.catalog_delete_successful, Toast.LENGTH_SHORT).show();
             Snackbar.make(findViewById(R.id.relative_layout),R.string.catalog_delete_successful,Snackbar.LENGTH_SHORT).show();
         }
         else{
-//            Toast.makeText(this, R.string.catalog_error_deleting, Toast.LENGTH_SHORT).show();
             Snackbar.make(findViewById(R.id.relative_layout),R.string.catalog_error_deleting,Snackbar.LENGTH_SHORT).show();
         }
     }

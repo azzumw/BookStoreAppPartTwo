@@ -23,13 +23,10 @@ import java.lang.annotation.RetentionPolicy;
  */
 
 public class ProductCursorAdapter extends CursorAdapter {
-    
+
     public ProductCursorAdapter(Context context, Cursor c) {
         super(context, c,0);
-        
     }
-
-
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
@@ -37,14 +34,10 @@ public class ProductCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, final Context context, final Cursor cursor) {
-        final TextView bookNameTxtView = view.findViewById(R.id.productnameTextView);
-        final TextView qtyTxtView = view.findViewById(R.id.quantityTextView);
-        final TextView priceTxtView = view.findViewById(R.id.priceBtn);
+        TextView bookNameTxtView = view.findViewById(R.id.productnameTextView);
+        TextView qtyTxtView = view.findViewById(R.id.quantityTextView);
         TextView stockTxtView = view.findViewById(R.id.stock_statustextview);
-
-
         TextView buy_TxtView = view.findViewById(R.id.priceBtn);
-        buy_TxtView.setTag(cursor.getPosition());
 
         int indexBookNameCol = cursor.getColumnIndex(ProductEntry.NAME);
         int indexPriceCol = cursor.getColumnIndex(ProductEntry.PRICE);
@@ -58,8 +51,8 @@ public class ProductCursorAdapter extends CursorAdapter {
 
         bookNameTxtView.setText(name_book);
         qtyTxtView.setText(String.valueOf(qty));
-        priceTxtView.setText(String.valueOf(price_book));
-        stockTxtView.setText((stock_status==1?"IN  STOCK":"OUT OF STOCK"));
+        buy_TxtView.setText(String.valueOf(price_book));
+        stockTxtView.setText((stock_status==1?context.getString(R.string.in_stock_status):context.getString(R.string.out_of_stock_status)));
 
         final Uri currentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI,cursor.getInt(cursor.getColumnIndex(ProductEntry.PRODUCT_ID)));
         final int newqty = cursor.getInt(cursor.getColumnIndex(ProductEntry.QUANTITY));
@@ -67,12 +60,11 @@ public class ProductCursorAdapter extends CursorAdapter {
         buy_TxtView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                int pos = (Integer) view.getTag();
-//                Toast.makeText(context, ""+pos, Toast.LENGTH_SHORT).show();
-//                Log.v("CURSOR ID ",""+ pos);
+
                 ContentValues values = new ContentValues();
+
                 int temp = newqty;
-//                before I put the values in contentvalues I need to check what is the quantity in the database stored
+
                 if(temp>0){
                     temp--;
                     if(temp==0) values.put(ProductEntry.STOCK_STATUS,ProductEntry.OUT_OF_STOCK);

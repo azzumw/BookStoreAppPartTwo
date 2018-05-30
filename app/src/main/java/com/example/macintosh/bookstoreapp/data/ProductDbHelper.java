@@ -26,13 +26,6 @@ public class ProductDbHelper extends SQLiteOpenHelper {
             ProductEntry.SUPPLIER_NAME + " INTEGER DEFAULT UNKNOWN, " +
             ProductEntry.SUPPLIER_PHONE_NUMBER + " INTEGER);";
 
-//    "FOREIGN KEY("+ProductEntry.SUPPLIER_ID+") REFERENCES " + SupplierEntry.SUP_ID+");"
-
-//    private final String CREATE_SUPPLIER_TABLE = "CREATE TABLE "+ SupplierEntry.TABLE_NAME + " ("
-//            + SupplierEntry.SUP_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-//            + SupplierEntry.NAME + " TEXT NOT NULL, "
-//            + SupplierEntry.PHONE + " TEXT)";
-
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
@@ -44,7 +37,6 @@ public class ProductDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//        sqLiteDatabase.execSQL(CREATE_SUPPLIER_TABLE);
         sqLiteDatabase.execSQL(CREATE_PRODUCT_TABLE);
     }
 
@@ -52,10 +44,4 @@ public class ProductDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         // do something
     }
-
-    public Cursor getAllProducts() {
-
-        return getReadableDatabase().rawQuery("SELECT * FROM " +ProductEntry.TABLE_NAME, null);
-    }
-
 }

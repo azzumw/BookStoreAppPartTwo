@@ -29,7 +29,6 @@ import com.example.macintosh.bookstoreapp.data.ProductContract.ProductEntry;
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     private ProductCursorAdapter mAdapter;
-
     ListView listView;
 
 
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
 
         mAdapter = new ProductCursorAdapter(this,null);
+
         listView =  findViewById(R.id.listviewMain);
 
         View emptyView = findViewById(R.id.empty_view);
@@ -97,8 +97,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
         switch (item.getItemId()){
             case R.id.action_insert_dummy_data: insertProductData();return true;
             case R.id.action_delete_all:
-                if(listView.getCount()>0)showDeleteConfirmationDialog();
-                else Snackbar.make(findViewById(R.id.relative_layout), R.string.no_books_snackbar_del_msg,Snackbar.LENGTH_SHORT).show();return true;
+                if(listView.getCount()>0)
+                    showDeleteConfirmationDialog();
+                else Snackbar.make(findViewById(R.id.relative_layout), R.string.no_books_snackbar_del_msg,Snackbar.LENGTH_SHORT).show();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

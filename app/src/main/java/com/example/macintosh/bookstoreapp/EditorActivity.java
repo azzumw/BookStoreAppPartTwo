@@ -138,51 +138,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     }
 
-    private void showUnsavedChangesDialog(
-            DialogInterface.OnClickListener discardButtonClickListener) {
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the positive and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.unsaved_changes_dialog_msg);
-        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
-        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Keep editing" button, so dismiss the dialog
-                // and continue editing the pet.
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-    @Override
-    public void onBackPressed() {
-        // If the pet hasn't changed, continue with handling back button press
-        if (!mProductHasChanged) {
-            super.onBackPressed();
-            return;
-        }
-
-        // Otherwise if there are unsaved changes, setup a dialog to warn the user.
-        // Create a click listener to handle the user confirming that changes should be discarded.
-        DialogInterface.OnClickListener discardButtonClickListener =
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // User clicked "Discard" button, close the current activity.
-                        finish();
-                    }
-                };
-
-        // Show dialog that there are unsaved changes
-        showUnsavedChangesDialog(discardButtonClickListener);
-    }
-
     private void savePet(boolean areAllTextAvailable){
 
         if(areAllTextAvailable) return;
@@ -254,29 +209,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
     }
 
-    /*private void setupSpinner() {
-        // Create adapter for spinner. The list options are from the String array it will use
-        // the spinner will use the default layout
-        ArrayAdapter quantitySpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.quantity_array, android.R.layout.simple_spinner_item);
-
-        // Specify dropdown layout style - simple list view with 1 item per line
-        quantitySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-        qtySpinner.setAdapter(quantitySpinnerAdapter);
-
-        qtySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                quantity = Integer.parseInt(adapterView.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                quantity = ProductEntry.DEFAULT_QUANTITY; //0
-            }
-        });
-    }*/
 
 
 
@@ -358,54 +290,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         return super.onOptionsItemSelected(item);
     }
 
-    private void showDeleteConfirmationDialog() {
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the postivie and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_dialog_msg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the product.
-                deleteProduct();
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the product.
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-    /**
-     * Perform the deletion of the pet in the database.
-     */
-    private void deleteProduct() {
-
-        int rowsDeleted;
-        if(currentProductUri!=null){
-
-            rowsDeleted = getContentResolver().delete(currentProductUri,null,null);
-            if(rowsDeleted!=0){
-//                Toast.makeText(this, getString(R.string.editor_delete_product_successful), Toast.LENGTH_SHORT).show();
-                Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_delete_product_successful,Snackbar.LENGTH_SHORT).show();
-
-            }
-            else{
-//                Toast.makeText(this, getString(R.string.editor_delete_product_failed), Toast.LENGTH_SHORT).show();
-                Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_delete_product_failed,Snackbar.LENGTH_SHORT).show();
-
-            }
-            finish();
-        }
-
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -457,4 +341,123 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         qtyNumberTxtView.setText(String.valueOf(0));
         //qtySpinner.setSelection(0);
     }
+
+    private void showDeleteConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the postivie and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the product.
+                deleteProduct();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the product.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    /**
+     * Perform the deletion of the pet in the database.
+     */
+    private void deleteProduct() {
+
+        int rowsDeleted;
+        if(currentProductUri!=null){
+
+            rowsDeleted = getContentResolver().delete(currentProductUri,null,null);
+            if(rowsDeleted!=0){
+//                Toast.makeText(this, getString(R.string.editor_delete_product_successful), Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_delete_product_successful,Snackbar.LENGTH_SHORT).show();
+
+            }
+            else{
+//                Toast.makeText(this, getString(R.string.editor_delete_product_failed), Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.editor_linear_parent), R.string.editor_delete_product_failed,Snackbar.LENGTH_SHORT).show();
+
+            }
+            finish();
+        }
+
+    }
+
+    private void showUnsavedChangesDialog(
+            DialogInterface.OnClickListener discardButtonClickListener) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Keep editing" button, so dismiss the dialog
+                // and continue editing the pet.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // If the pet hasn't changed, continue with handling back button press
+        if (!mProductHasChanged) {
+            super.onBackPressed();
+            return;
+        }
+
+        // Otherwise if there are unsaved changes, setup a dialog to warn the user.
+        // Create a click listener to handle the user confirming that changes should be discarded.
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked "Discard" button, close the current activity.
+                        finish();
+                    }
+                };
+
+        // Show dialog that there are unsaved changes
+        showUnsavedChangesDialog(discardButtonClickListener);
+    }
+
+    /*private void setupSpinner() {
+        // Create adapter for spinner. The list options are from the String array it will use
+        // the spinner will use the default layout
+        ArrayAdapter quantitySpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.quantity_array, android.R.layout.simple_spinner_item);
+
+        // Specify dropdown layout style - simple list view with 1 item per line
+        quantitySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        qtySpinner.setAdapter(quantitySpinnerAdapter);
+
+        qtySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                quantity = Integer.parseInt(adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                quantity = ProductEntry.DEFAULT_QUANTITY; //0
+            }
+        });
+    }*/
+
 }

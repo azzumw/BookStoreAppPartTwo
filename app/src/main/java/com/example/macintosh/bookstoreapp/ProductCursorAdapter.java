@@ -5,7 +5,9 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,8 +53,15 @@ public class ProductCursorAdapter extends CursorAdapter {
 
         bookNameTxtView.setText(name_book);
         qtyTxtView.setText(String.valueOf(qty));
-        buy_TxtView.setText(String.valueOf(price_book));
+        buy_TxtView.setText(context.getString(R.string.buy_pound).concat(String.valueOf(price_book)));
         stockTxtView.setText((stock_status==1?context.getString(R.string.in_stock_status):context.getString(R.string.out_of_stock_status)));
+
+        if(stock_status==1){
+            stockTxtView.setTextColor(Color.GREEN);
+        }
+        else if(stock_status==0){
+            stockTxtView.setTextColor(Color.RED);
+        }
 
         final Uri currentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI,cursor.getInt(cursor.getColumnIndex(ProductEntry.PRODUCT_ID)));
         final int newqty = cursor.getInt(cursor.getColumnIndex(ProductEntry.QUANTITY));
@@ -69,6 +78,7 @@ public class ProductCursorAdapter extends CursorAdapter {
                     temp--;
                     if(temp==0) values.put(ProductEntry.STOCK_STATUS,ProductEntry.OUT_OF_STOCK);
                 }
+                else if(temp==0) Snackbar.make(view, R.string.outOfStock_message,Snackbar.LENGTH_SHORT).show();
 
                 values.put(ProductEntry.QUANTITY,temp);
                 context.getContentResolver().update(currentProductUri,values,null,null);

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/editor_linear_parent"
     android:orientation="vertical"
+    android:background="@color/card_background_dark"
     android:padding="@dimen/activity_margin"
     tools:context=".EditorActivity">
 
@@ -32,6 +33,7 @@
             <EditText
                 android:id="@+id/edit_book_name"
                 android:hint="@string/hint_book_name"
+                android:textColorHint="@color/colorAccent"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
 
@@ -60,6 +62,7 @@
             <EditText
                 android:id="@+id/edit_price"
                 android:hint="@string/hint_book_price"
+                android:textColorHint="@color/colorAccent"
                 android:paddingLeft="4dp"
                 android:inputType="numberDecimal"
                 style="@style/EditorFieldStyle" />
@@ -100,6 +103,7 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:textSize="20sp"
+                android:textColor="@color/colorAccent"
                  />
 
             <ImageButton
@@ -112,7 +116,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Measurement category -->
+    <!-- Supplier category -->
     <LinearLayout
         android:id="@+id/container_supp_name"
         android:layout_width="match_parent"
@@ -135,6 +139,7 @@
             <EditText
                 android:id="@+id/edit_supp_name"
                 android:hint="@string/hint_supp_name"
+                android:textColorHint="@color/colorAccent"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
 
@@ -166,6 +171,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:hint="@string/phone_number_hint"
+                android:textColorHint="@color/colorAccent"
                 android:inputType="phone" />
 
         </RelativeLayout>

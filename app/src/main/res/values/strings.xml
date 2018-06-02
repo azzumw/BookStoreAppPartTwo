@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">BookStoreApp</string>
+    <string name="title">Book Store App</string>
+    <string name="signature">Project By Azzum</string>
     <string name="insert">insert</string>
     <string name="insertDummyData">Insert Dummy Data</string>
     <string name="del">Delete All</string>

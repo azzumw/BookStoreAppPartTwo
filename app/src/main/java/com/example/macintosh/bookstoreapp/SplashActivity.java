@@ -16,7 +16,7 @@ import android.view.animation.AnimationUtils;
 import com.example.macintosh.bookstoreapp.R;
 import com.example.macintosh.bookstoreapp.KenBurnsView;
 /**
- * Created by macintosh on 02/06/2018.
+ * source:http://androidmkab.com/2016/02/28/how-to-add-splash-screen-in-android-with-kenburnsview-part-2/
  */
 
 public class SplashActivity extends Activity {

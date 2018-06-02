@@ -3,7 +3,7 @@ package com.example.macintosh.bookstoreapp;
 import android.graphics.RectF;
 
 /**
- * Created by macintosh on 02/06/2018.
+ * source:http://androidmkab.com/2016/02/28/how-to-add-splash-screen-in-android-with-kenburnsview-part-2/
  */
 
 public final class MathUtils {

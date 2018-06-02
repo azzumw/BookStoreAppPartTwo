@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--/**
+ * source:http://androidmkab.com/2016/02/28/how-to-add-splash-screen-in-android-with-kenburnsview-part-1/
+ */-->
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
     <translate

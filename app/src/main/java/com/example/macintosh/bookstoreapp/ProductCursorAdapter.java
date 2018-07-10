@@ -80,6 +80,8 @@ public class ProductCursorAdapter extends CursorAdapter {
                 }
                 else if(temp==0) Snackbar.make(view, R.string.outOfStock_message,Snackbar.LENGTH_SHORT).show();
 
+
+                //update the quantity
                 values.put(ProductEntry.QUANTITY,temp);
                 context.getContentResolver().update(currentProductUri,values,null,null);
 

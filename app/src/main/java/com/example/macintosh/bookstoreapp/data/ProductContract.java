@@ -6,6 +6,9 @@ import android.provider.BaseColumns;
 
 /**
  * API Contract for the BookStore app.
+ * Contract Class to document the structure of the database also known as the schema
+ * Columns and Items names to curb mistakes
+ * makes future changes easier
  */
 
 public final class ProductContract {

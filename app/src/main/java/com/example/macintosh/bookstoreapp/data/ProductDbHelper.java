@@ -10,6 +10,7 @@ import com.example.macintosh.bookstoreapp.data.ProductContract.ProductEntry;
 
 /**
  * Created by macintosh on 04/03/2018.
+ * Responsible for creating/managing databases
  */
 
 public class ProductDbHelper extends SQLiteOpenHelper {
